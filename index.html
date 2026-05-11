@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AlignIQ™ — PSI-90 Guardrail Layer for Ambient AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Lato:wght@300;400;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a2740;
+  --ink-soft: #2e3b54;
+  --body: #4a5468;
+  --muted: #8b95a8;
+  --light: #c5cbd4;
+  --rule: #e3e6ec;
+  --paper: #ffffff;
+  --paper-deep: #f5f6f8;
+  --paper-warm: #faf9f6;
+  --white: #ffffff;
+  --accent-up: #6b7c92;
+  --accent-flat: #d5d8de;
+  --accent-warn: #b8693d;
+  --accent-go: #5a7a5f;
+  --hold: #1a2740;
+  --release: #5a7a5f;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Lato', sans-serif;
+  color: var(--body);
+  background: var(--paper);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* TOP BAR */
+.demo-bar {
+  background: var(--accent-up);
+  color: var(--white);
+  text-align: center;
+  padding: 7px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  font-weight: 500;
+}
+.brand-bar {
+  background: var(--ink);
+  color: var(--white);
+  padding: 14px 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+}
+.brand-bar-left { font-weight: 700; }
+.brand-bar-right { color: var(--accent-flat); }
+
+/* HERO */
+.hero {
+  padding: 56px 56px 32px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--accent-up);
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1.1;
+  margin-bottom: 18px;
+}
+.hero-title em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+.hero-deck {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 19px;
+  color: var(--body);
+  line-height: 1.5;
+  margin-bottom: 28px;
+  max-width: 880px;
+}
+.hero-meta {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+.hero-meta-item strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* SECTION HEADER */
+.section {
+  padding: 56px 56px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.section.alt {
+  background: var(--paper-deep);
+  max-width: none;
+  padding: 56px 0;
+}
+.section-alt-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 56px;
+}
+.section-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+.section-title em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+.section-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--body);
+  line-height: 1.5;
+  max-width: 880px;
+  margin-bottom: 36px;
+}
+
+/* SCENARIO PICKER */
+.scenario-picker {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 32px;
+}
+.scenario-btn {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  padding: 22px 24px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+  border-left: 3px solid var(--accent-flat);
+  font-family: 'Lato', sans-serif;
+}
+.scenario-btn:hover {
+  border-color: var(--ink);
+  border-left-color: var(--ink);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(26, 39, 64, 0.08);
+}
+.scenario-btn.active {
+  background: var(--ink);
+  color: var(--white);
+  border-color: var(--ink);
+  border-left-color: var(--accent-warn);
+}
+.scenario-btn-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-up);
+  margin-bottom: 6px;
+}
+.scenario-btn.active .scenario-btn-tag { color: var(--accent-flat); }
+.scenario-btn-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 4px;
+  line-height: 1.25;
+}
+.scenario-btn.active .scenario-btn-title { color: var(--white); }
+.scenario-btn-setting {
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+}
+.scenario-btn.active .scenario-btn-setting { color: var(--accent-flat); }
+
+/* SCENARIO PLAYBACK */
+.scenario-playback {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  padding: 0;
+  display: none;
+}
+.scenario-playback.active { display: block; }
+
+.flow-step {
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--rule);
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 22px;
+  align-items: flex-start;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: fadeIn 0.4s forwards;
+}
+.flow-step:nth-child(1) { animation-delay: 0.05s; }
+.flow-step:nth-child(2) { animation-delay: 0.4s; }
+.flow-step:nth-child(3) { animation-delay: 0.8s; }
+.flow-step:nth-child(4) { animation-delay: 1.6s; }
+
+@keyframes fadeIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.flow-step-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--accent-up);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.flow-step-content {
+  flex: 1;
+}
+.flow-step-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.flow-step-body {
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  color: var(--ink);
+  line-height: 1.55;
+}
+
+/* Step 1: Provider quote */
+.provider-quote {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 17px;
+  color: var(--ink);
+  line-height: 1.5;
+  padding: 14px 18px;
+  background: var(--paper-warm);
+  border-left: 3px solid var(--accent-up);
+}
+
+/* Step 2: AI detection */
+.ai-detection {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.code-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--paper-deep);
+  border: 1px solid var(--rule);
+  padding: 6px 14px;
+  letter-spacing: 0.04em;
+}
+.confidence-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* Step 3: Conditions evaluation */
+.conditions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 6px;
+}
+.condition-row {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px dotted var(--rule);
+}
+.condition-row:last-child { border-bottom: none; }
+.condition-icon {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.4;
+  text-align: center;
+}
+.condition-icon.fail { color: var(--accent-warn); }
+.condition-icon.pass { color: var(--accent-go); }
+.condition-icon.unknown { color: var(--muted); }
+.condition-text {
+  font-size: 14px;
+  color: var(--ink);
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.condition-evidence {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* Step 4: Outcome */
+.outcome-banner {
+  padding: 24px 28px;
+  margin-top: 6px;
+}
+.outcome-banner.hold {
+  background: var(--ink);
+  color: var(--white);
+}
+.outcome-banner.release {
+  background: var(--accent-go);
+  color: var(--white);
+}
+.outcome-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 6px;
+  opacity: 0.7;
+}
+.outcome-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 14px;
+}
+.outcome-reason {
+  font-size: 14px;
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+.outcome-query {
+  font-size: 13px;
+  font-style: italic;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.1);
+  border-left: 2px solid rgba(255,255,255,0.5);
+  margin-top: 14px;
+}
+.outcome-query-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 6px;
+  opacity: 0.8;
+}
+.outcome-impact {
+  font-size: 12px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  font-style: italic;
+  opacity: 0.85;
+  line-height: 1.6;
+}
+
+/* INTEGRATION ARCHITECTURE */
+.integration-flow {
+  display: grid;
+  grid-template-columns: 1fr 30px 1fr 30px 1fr;
+  gap: 12px;
+  align-items: stretch;
+  margin-top: 8px;
+}
+.integration-step {
+  background: var(--paper-deep);
+  border: 1px solid var(--rule);
+  padding: 24px 22px;
+  border-top: 3px solid var(--accent-flat);
+}
+.integration-step.alignIQ {
+  background: var(--ink);
+  color: var(--white);
+  border-top-color: var(--accent-warn);
+  border-color: var(--ink);
+}
+.integration-step-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--accent-up);
+  margin-bottom: 10px;
+}
+.integration-step.alignIQ .integration-step-num { color: var(--accent-flat); }
+.integration-step-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.integration-step.alignIQ .integration-step-label { color: var(--accent-warn); }
+.integration-step-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+.integration-step.alignIQ .integration-step-title { color: var(--white); }
+.integration-step-body {
+  font-size: 13px;
+  color: var(--body);
+  line-height: 1.55;
+}
+.integration-step.alignIQ .integration-step-body { color: var(--accent-flat); }
+.integration-arrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 24px;
+  color: var(--accent-up);
+  font-weight: 300;
+  align-self: center;
+  text-align: center;
+}
+.integration-note {
+  margin-top: 28px;
+  padding: 18px 22px;
+  background: var(--paper-warm);
+  border-left: 3px solid var(--accent-up);
+  font-size: 13px;
+  color: var(--ink);
+  line-height: 1.6;
+}
+.integration-note strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* MATRIX GRID */
+.psi-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 8px;
+}
+.psi-card {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-top: 3px solid var(--accent-up);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.psi-card.risk-very-high { border-top-color: var(--accent-warn); }
+.psi-card.risk-high { border-top-color: var(--ink); }
+.psi-card.risk-medium { border-top-color: var(--accent-up); }
+.psi-card:hover {
+  box-shadow: 0 4px 12px rgba(26, 39, 64, 0.08);
+}
+.psi-card-summary {
+  padding: 20px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+}
+.psi-card-id {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--accent-up);
+  margin-bottom: 6px;
+}
+.psi-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+.psi-card-risk-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  white-space: nowrap;
+}
+.risk-very-high .psi-card-risk-tag {
+  background: var(--accent-warn);
+  color: var(--white);
+}
+.risk-high .psi-card-risk-tag {
+  background: var(--ink);
+  color: var(--white);
+}
+.risk-medium .psi-card-risk-tag {
+  background: var(--accent-up);
+  color: var(--white);
+}
+
+.psi-card-detail {
+  display: none;
+  border-top: 1px solid var(--rule);
+  padding: 24px;
+  background: var(--paper-warm);
+}
+.psi-card.expanded .psi-card-detail { display: block; }
+.psi-card.expanded .psi-card-summary {
+  background: var(--paper-deep);
+  border-bottom: 1px solid var(--rule);
+}
+
+.psi-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-bottom: 20px;
+}
+.psi-detail-block {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  padding: 16px 18px;
+}
+.psi-detail-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.psi-detail-list {
+  list-style: none;
+  padding: 0;
+}
+.psi-detail-list li {
+  font-size: 13px;
+  color: var(--ink);
+  line-height: 1.5;
+  padding: 8px 0;
+  border-bottom: 1px dotted var(--rule);
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 8px;
+}
+.psi-detail-list li:last-child { border-bottom: none; }
+.psi-detail-list li::before {
+  content: counter(item);
+  counter-increment: item;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--accent-up);
+  font-weight: 700;
+}
+.psi-detail-list { counter-reset: item; }
+
+.psi-never {
+  background: var(--ink);
+  color: var(--white);
+  padding: 14px 18px;
+  font-size: 13px;
+  line-height: 1.55;
+  font-style: italic;
+}
+.psi-never-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-style: normal;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-warn);
+  margin-bottom: 6px;
+}
+.psi-icd {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule);
+  letter-spacing: 0.04em;
+}
+
+/* HOOK / GAP SECTION */
+.hook {
+  background: var(--ink);
+  color: var(--white);
+  padding: 64px 56px;
+}
+.hook-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+.hook-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--accent-flat);
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+.hook-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+.hook-title em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--accent-flat);
+}
+.hook-body {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--accent-flat);
+  max-width: 820px;
+  margin: 0 auto 36px;
+}
+.hook-divider {
+  width: 80px;
+  height: 1px;
+  background: var(--accent-flat);
+  margin: 32px auto;
+  opacity: 0.3;
+}
+.hook-byline {
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  color: var(--accent-flat);
+}
+.hook-byline strong { color: var(--white); }
+
+/* FOOTER */
+.footer {
+  background: var(--paper);
+  padding: 32px 56px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.footer-brand em { font-style: italic; font-weight: 400; color: var(--accent-up); }
+.footer-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@media (max-width: 900px) {
+  .hero, .section, .section-alt-inner, .hook, .footer { padding-left: 24px; padding-right: 24px; }
+  .brand-bar { padding: 14px 24px; flex-direction: column; gap: 8px; }
+  .hero-title { font-size: 36px; }
+  .section-title { font-size: 28px; }
+  .scenario-picker { grid-template-columns: 1fr; }
+  .psi-grid { grid-template-columns: 1fr; }
+  .psi-detail-grid { grid-template-columns: 1fr; }
+  .integration-flow { grid-template-columns: 1fr; }
+  .integration-arrow { transform: rotate(90deg); padding: 4px 0; }
+  .flow-step { grid-template-columns: 40px 1fr; gap: 14px; padding: 18px 20px; }
+  .hero-meta { gap: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="demo-bar">CONFIDENTIAL · AMBIENCE HEALTHCARE INTRODUCTORY DISCUSSION · MAY 2026</div>
+<div class="brand-bar">
+  <div class="brand-bar-left">CLINFIN SOLUTIONS · ALIGNIQ™ FRAMEWORK</div>
+  <div class="brand-bar-right">PSI-90 GUARDRAIL LAYER · DEMONSTRATION</div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">— A Clinical Intelligence Layer for Ambient AI —</div>
+  <h1 class="hero-title">Your AI hears the provider.<br><em>AlignIQ™ knows what gets coded.</em></h1>
+  <p class="hero-deck">A clinical intelligence layer that sits between ambient AI and the codes it suggests. Built by a CDI nurse to catch the documentation patterns that trigger PSI-90, HAC penalties, and Star Rating Safety of Care downgrades — before the code is ever released.</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">FRAMEWORK: <strong>PSI-90 Guardrail Matrix</strong></div>
+    <div class="hero-meta-item">SCOPE: <strong>10 PSIs · 40 Conditions</strong></div>
+    <div class="hero-meta-item">FOR: <strong>Ambient AI Documentation</strong></div>
+    <div class="hero-meta-item">FALSE-POSITIVE TOLERANCE: <strong>0</strong></div>
+  </div>
+</div>
+
+<!-- SCENARIO SIMULATOR -->
+<div class="section alt">
+  <div class="section-alt-inner" style="max-width: 1280px; margin: 0 auto; padding: 0 56px;">
+    <div class="section-eyebrow">— Live Demonstration —</div>
+    <h2 class="section-title">See the guardrail <em>fire.</em></h2>
+    <p class="section-subtitle">Three real ambient-AI false-positive scenarios — each one capable of inflating a PSI-90 composite and pushing a hospital into HAC penalty territory. Click any scenario to watch the guardrail layer evaluate the provider's language, check the conditions, and decide whether to release or hold the code suggestion.</p>
+
+    <div class="scenario-picker" id="scenarioPicker">
+      <!-- Filled by JS -->
+    </div>
+
+    <div class="scenario-playback" id="scenarioPlayback">
+      <!-- Filled by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT INTEGRATES -->
+<div class="section">
+  <div class="section-eyebrow">— How It Integrates —</div>
+  <h2 class="section-title">A layer between <em>your AI</em> and the code suggestion.</h2>
+  <p class="section-subtitle">AlignIQ doesn't replace ambient AI documentation. It sits between the AI's clinical NLP engine and the code suggestion that reaches the coder — evaluating PSI-90 risk in real time, holding any suggestion that fails its guardrail conditions.</p>
+  <div class="integration-flow">
+    <div class="integration-step">
+      <div class="integration-step-num">01</div>
+      <div class="integration-step-label">Ambient AI</div>
+      <div class="integration-step-title">Listens & Interprets</div>
+      <div class="integration-step-body">Your existing NLP engine processes the provider-patient encounter and generates candidate ICD-10 codes based on clinical language.</div>
+    </div>
+    <div class="integration-arrow">→</div>
+    <div class="integration-step alignIQ">
+      <div class="integration-step-num">02</div>
+      <div class="integration-step-label">AlignIQ™ Guardrail</div>
+      <div class="integration-step-title">Evaluates & Decides</div>
+      <div class="integration-step-body">Before any PSI-90 code is suggested, AlignIQ checks 4 conditions per measure. ALL conditions TRUE → release. ANY false or unknown → hold + CDI query.</div>
+    </div>
+    <div class="integration-arrow">→</div>
+    <div class="integration-step">
+      <div class="integration-step-num">03</div>
+      <div class="integration-step-label">Coder Workstation</div>
+      <div class="integration-step-title">Sees Only Safe Suggestions</div>
+      <div class="integration-step-body">Released suggestions appear normally. Held suggestions are flagged with the reason and the auto-generated CDI query, escalating to the provider for clarification.</div>
+    </div>
+  </div>
+  <div class="integration-note">
+    <strong>Deployment model:</strong> AlignIQ runs as a deterministic logic layer — no model retraining required, no provider workflow disruption, no impact on your AI's existing transcription or summary outputs. Only PSI-90 code suggestions pass through the guardrail.
+  </div>
+</div>
+
+<!-- FULL PSI MATRIX -->
+<div class="section">
+  <div class="section-eyebrow">— Full Reference —</div>
+  <h2 class="section-title">The complete <em>PSI-90 Guardrail Matrix.</em></h2>
+  <p class="section-subtitle">Click any PSI to expand its guardrail logic — what the AI hears, what a CDI nurse asks, what must be confirmed before a code is released, and what must never be suggested alone.</p>
+  <div class="psi-grid" id="psiGrid">
+    <!-- Filled by JS -->
+  </div>
+</div>
+
+<!-- HOOK -->
+<div class="hook">
+  <div class="hook-inner">
+    <div class="hook-eyebrow">— The Gap, in Plain English —</div>
+    <h2 class="hook-title">Your AI knows what the provider <em>said.</em><br>AlignIQ knows what happens to the hospital <em>six months later</em><br>because of how it gets coded.</h2>
+    <p class="hook-body">Your product has the eyes and ears. AlignIQ is the clinical brain — it knows which recommendations will cost the hospital money if accepted without confirmation. The AHRQ tool measures the problem after the fact. AlignIQ prevents the documentation decisions that cause it — before the code is ever suggested.</p>
+    <div class="hook-divider"></div>
+    <div class="hook-byline">
+      <strong>Deanna Payne</strong> · MSN, RN, CCDS, CCDS-O<br>
+      Founder, Clinfin Solutions · aligniq@clinfinsolutions.com
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-brand">Clinfin <em>Solutions</em></div>
+  <div class="footer-meta">ALIGNIQ™ · PSI-90 GUARDRAIL LAYER · CONFIDENTIAL — AMBIENCE HEALTHCARE</div>
+</div>
+
+<script src="psi_data.js"></script>
+<script>
+// ============ SCENARIO PICKER ============
+let activeScenario = null;
+
+function renderScenarioPicker() {
+  const picker = document.getElementById('scenarioPicker');
+  picker.innerHTML = SCENARIOS.map((s, i) => `
+    <button class="scenario-btn ${i === activeScenario ? 'active' : ''}" data-idx="${i}">
+      <div class="scenario-btn-tag">${s.psi} · Scenario</div>
+      <div class="scenario-btn-title">${s.name}</div>
+      <div class="scenario-btn-setting">${s.setting}</div>
+    </button>
+  `).join('');
+
+  picker.querySelectorAll('.scenario-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.getAttribute('data-idx'));
+      activeScenario = idx;
+      renderScenarioPicker();
+      renderScenarioPlayback();
+    });
+  });
+}
+
+function renderScenarioPlayback() {
+  const playback = document.getElementById('scenarioPlayback');
+  if (activeScenario === null) {
+    playback.classList.remove('active');
+    playback.innerHTML = '';
+    return;
+  }
+  const s = SCENARIOS[activeScenario];
+
+  // Build conditions HTML
+  const conditionsHtml = s.conditions.map(c => {
+    let iconCls = 'fail';
+    let iconChar = '⚠';
+    if (c.met === true) { iconCls = 'pass'; iconChar = '✓'; }
+    else if (c.met === 'unknown') { iconCls = 'unknown'; iconChar = '?'; }
+    return `
+      <div class="condition-row">
+        <div class="condition-icon ${iconCls}">${iconChar}</div>
+        <div>
+          <div class="condition-text">${c.text}</div>
+          <div class="condition-evidence">${c.evidence}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Outcome banner
+  const outcomeCls = s.outcome === 'HOLD' ? 'hold' : 'release';
+  const outcomeIcon = s.outcome === 'HOLD' ? '⛔ HOLD' : '✓ RELEASE';
+
+  playback.innerHTML = `
+    <div class="flow-step">
+      <div class="flow-step-num">01</div>
+      <div class="flow-step-content">
+        <div class="flow-step-label">Provider Speaks</div>
+        <div class="provider-quote">${s.provider_quote}</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-num">02</div>
+      <div class="flow-step-content">
+        <div class="flow-step-label">Ambient AI Detection</div>
+        <div class="ai-detection">
+          <span class="code-pill">${s.ai_detection}</span>
+          <span class="confidence-pill">CONFIDENCE: ${s.ai_confidence}</span>
+        </div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-num">03</div>
+      <div class="flow-step-content">
+        <div class="flow-step-label">AlignIQ™ Guardrail Evaluates</div>
+        <div class="conditions-list">${conditionsHtml}</div>
+      </div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-num">04</div>
+      <div class="flow-step-content">
+        <div class="flow-step-label">Outcome</div>
+        <div class="outcome-banner ${outcomeCls}">
+          <div class="outcome-label">Decision</div>
+          <div class="outcome-title">${outcomeIcon}</div>
+          <div class="outcome-reason">${s.outcome_reason}</div>
+          <div class="outcome-query">
+            <div class="outcome-query-label">Auto-Generated CDI Query</div>
+            ${s.cdi_query}
+          </div>
+          <div class="outcome-impact">${s.business_impact}</div>
+        </div>
+      </div>
+    </div>
+  `;
+  playback.classList.add('active');
+}
+
+// ============ PSI MATRIX ============
+function renderPsiGrid() {
+  const grid = document.getElementById('psiGrid');
+  grid.innerHTML = PSI_DATA.map((p, i) => `
+    <div class="psi-card risk-${p.risk}" data-idx="${i}">
+      <div class="psi-card-summary">
+        <div>
+          <div class="psi-card-id">${p.id}</div>
+          <div class="psi-card-title">${p.title}</div>
+        </div>
+        <div class="psi-card-risk-tag">${p.risk === 'very-high' ? 'Very High Risk' : p.risk === 'high' ? 'High Risk' : 'Medium Risk'}</div>
+      </div>
+      <div class="psi-card-detail">
+        <div class="psi-detail-grid">
+          <div class="psi-detail-block">
+            <div class="psi-detail-label">What the AI Hears</div>
+            <ol class="psi-detail-list">
+              ${p.hears.map(h => `<li><div>${h}</div></li>`).join('')}
+            </ol>
+          </div>
+          <div class="psi-detail-block">
+            <div class="psi-detail-label">CDI Nurse Instinct</div>
+            <ol class="psi-detail-list">
+              ${p.cdi_instinct.map(c => `<li><div>${c}</div></li>`).join('')}
+            </ol>
+          </div>
+          <div class="psi-detail-block">
+            <div class="psi-detail-label">Must Be Confirmed (ALL TRUE)</div>
+            <ol class="psi-detail-list">
+              ${p.confirm.map(c => `<li><div>${c}</div></li>`).join('')}
+            </ol>
+          </div>
+          <div class="psi-detail-block">
+            <div class="psi-detail-label">If Not Confirmed</div>
+            <ol class="psi-detail-list">
+              <li><div>HOLD — suppress code suggestion</div></li>
+              <li><div>Render alert to coder workstation</div></li>
+              <li><div>Auto-generate CDI query to physician</div></li>
+              <li><div>Log event: guardrail ID, trigger, condition failed, timestamp</div></li>
+            </ol>
+          </div>
+        </div>
+        <div class="psi-never">
+          <div class="psi-never-label">🚫 Never Suggest</div>
+          ${p.never}
+        </div>
+        <div class="psi-icd">ICD-10: ${p.icd}</div>
+      </div>
+    </div>
+  `).join('');
+
+  grid.querySelectorAll('.psi-card').forEach(card => {
+    card.querySelector('.psi-card-summary').addEventListener('click', () => {
+      card.classList.toggle('expanded');
+    });
+  });
+}
+
+// INIT
+document.addEventListener('DOMContentLoaded', () => {
+  renderScenarioPicker();
+  renderPsiGrid();
+});
+</script>
+
+</body>
+</html>
