@@ -297,7 +297,7 @@ const SCENARIOS = [
     ],
     outcome: 'HOLD',
     outcome_reason: 'Three of four conditions pass — the AI sees a return-to-OR for postop hematoma and codes it as a surgical complication. But the patient was on dual antiplatelet therapy continued perioperatively for stroke prevention. Drug-induced bleeding (D68.32) is a clinically distinct mechanism — when antiplatelet therapy is what actually drove the hematoma, the record should say so.',
-    cdi_query: 'Was the hematoma a complication of the surgery itself, or a consequence of continued dual antiplatelet therapy (aspirin + Plavix) maintained for the patient\'s recent stroke? These are clinically distinct events — and they should be documented as such.',
+    cdi_query: 'Is the post-operative hematoma characterized as related to continued perioperative dual antiplatelet therapy (aspirin + Plavix for recent stroke), or as a surgical complication independent of anticoagulant effect? Drug-induced bleeding documentation affects PSI-09 attribution.',
     business_impact: 'Drug-induced bleeding is a distinct clinical event from a surgical complication — documenting it accurately (D68.32) reflects what actually drove the hematoma. Without that clarification, a medication-related bleed may be miscoded as a surgical event it wasn\'t.',
   },
   {
@@ -315,7 +315,7 @@ const SCENARIOS = [
     ],
     outcome: 'HOLD',
     outcome_reason: 'Three conditions pass — the AI sees confirmed imaging, confirmed diagnosis, and therapeutic anticoagulation. But without explicit documentation of causation (cancer-related vs. procedure-related) and POA status, the AI cannot distinguish a procedural complication from disease-related thrombosis. POD 1 symptomatic presentation in a hypercoagulable oncology patient further argues for clarification before the code is released.',
-    cdi_query: 'Two questions before the code is released: (1) Is this DVT cancer-associated (driven by the patient\'s malignancy), or procedure-related? (2) With no pre-op imaging on file, can POA status be clinically assessed — or should it be documented as unknown? Either way, the record should reflect what\'s actually known.',
+    cdi_query: '(1) Is the DVT characterized as cancer-associated (related to known malignancy) or as procedure-related? (2) Given no pre-operative imaging is available, can POA status be clinically assessed and documented? Both causation and POA affect PSI-12 attribution.',
     business_impact: 'It\'s reasonable to pause for clarification — to determine whether the DVT could have been present on admission, or whether POA status genuinely cannot be established. POA-unknown is itself an accurate clinical answer, and it mitigates the PSI-12 attribution.',
   },
 ];
