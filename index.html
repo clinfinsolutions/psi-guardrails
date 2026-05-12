@@ -737,7 +737,6 @@ body {
 <body>
 
 <!-- TOP BAR -->
-<div class="demo-bar">CONFIDENTIAL · AMBIENCE HEALTHCARE INTRODUCTORY DISCUSSION · MAY 2026</div>
 <div class="brand-bar">
   <div class="brand-bar-left">CLINFIN SOLUTIONS · ALIGNIQ™ FRAMEWORK</div>
   <div class="brand-bar-right">PSI-90 GUARDRAIL LAYER · DEMONSTRATION</div>
@@ -746,11 +745,11 @@ body {
 <!-- HERO -->
 <div class="hero">
   <div class="hero-eyebrow">— A Clinical Intelligence Layer for Ambient AI —</div>
-  <h1 class="hero-title">Your AI hears the provider.<br><em>AlignIQ™ knows what gets coded.</em></h1>
-  <p class="hero-deck">A clinical intelligence layer that sits between ambient AI and the codes it suggests. Built by a CDI nurse to catch the documentation patterns that trigger PSI-90, HAC penalties, and Star Rating Safety of Care downgrades — before the code is ever released.</p>
+  <h1 class="hero-title">Your AI hears the provider.<br><em>AlignIQ™ safeguards their intent.</em></h1>
+  <p class="hero-deck">A clinical intelligence layer that protects the provider's clinical intent — and the institution from phantom quality penalties. Built to catch the documentation patterns that trigger PSI-90, HAC penalties, and Star Rating Safety of Care downgrades.</p>
   <div class="hero-meta">
     <div class="hero-meta-item">FRAMEWORK: <strong>PSI-90 Guardrail Matrix</strong></div>
-    <div class="hero-meta-item">SCOPE: <strong>10 PSIs · 40 Conditions</strong></div>
+    <div class="hero-meta-item">SCOPE: <strong>10 PSIs · 40 Logic Rules</strong></div>
     <div class="hero-meta-item">FOR: <strong>Ambient AI Documentation</strong></div>
     <div class="hero-meta-item">FALSE-POSITIVE TOLERANCE: <strong>0</strong></div>
   </div>
@@ -760,7 +759,7 @@ body {
 <div class="section alt">
   <div class="section-alt-inner" style="max-width: 1280px; margin: 0 auto; padding: 0 56px;">
     <div class="section-eyebrow">— Live Demonstration —</div>
-    <h2 class="section-title">See the guardrail <em>fire.</em></h2>
+    <h2 class="section-title">See AlignIQ™ <em>in action.</em></h2>
     <p class="section-subtitle">Three real ambient-AI false-positive scenarios — each one capable of inflating a PSI-90 composite and pushing a hospital into HAC penalty territory. Click any scenario to watch the guardrail layer evaluate the provider's language, check the conditions, and decide whether to release or hold the code suggestion.</p>
 
     <div class="scenario-picker" id="scenarioPicker">
@@ -805,16 +804,6 @@ body {
   </div>
 </div>
 
-<!-- FULL PSI MATRIX -->
-<div class="section">
-  <div class="section-eyebrow">— Full Reference —</div>
-  <h2 class="section-title">The complete <em>PSI-90 Guardrail Matrix.</em></h2>
-  <p class="section-subtitle">Click any PSI to expand its guardrail logic — what the AI hears, what a CDI nurse asks, what must be confirmed before a code is released, and what must never be suggested alone.</p>
-  <div class="psi-grid" id="psiGrid">
-    <!-- Filled by JS -->
-  </div>
-</div>
-
 <!-- HOOK -->
 <div class="hook">
   <div class="hook-inner">
@@ -832,7 +821,7 @@ body {
 <!-- FOOTER -->
 <div class="footer">
   <div class="footer-brand">Clinfin <em>Solutions</em></div>
-  <div class="footer-meta">ALIGNIQ™ · PSI-90 GUARDRAIL LAYER · CONFIDENTIAL — AMBIENCE HEALTHCARE</div>
+  <div class="footer-meta">ALIGNIQ™ · PSI-90 GUARDRAIL LAYER · CLINFIN SOLUTIONS</div>
 </div>
 
 <script src="psi_data.js"></script>
@@ -873,7 +862,7 @@ function renderScenarioPlayback() {
   const conditionsHtml = s.conditions.map(c => {
     let iconCls = 'fail';
     let iconChar = '⚠';
-    if (c.met === true) { iconCls = 'pass'; iconChar = '✓'; }
+    if (c.met === true || c.met === 'pass') { iconCls = 'pass'; iconChar = '✓'; }
     else if (c.met === 'unknown') { iconCls = 'unknown'; iconChar = '?'; }
     return `
       <div class="condition-row">
@@ -996,7 +985,6 @@ function renderPsiGrid() {
 // INIT
 document.addEventListener('DOMContentLoaded', () => {
   renderScenarioPicker();
-  renderPsiGrid();
 });
 </script>
 
